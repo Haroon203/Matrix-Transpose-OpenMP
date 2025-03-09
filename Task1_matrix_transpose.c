@@ -39,7 +39,8 @@ int main()
     
     double start = getTime(); // Record start time
     transposeSequential(matrix, transposed);
-    double end = getTime();                         // Record end time
-
+    double end = getTime();                       // Record end time
+    double exection_time = end - start;             // Calculate execution time for this run 
+    printf("Execution Time: %f seconds\n", exection_time); // Print execution time
     return 0;
 }
