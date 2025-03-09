@@ -23,12 +23,23 @@ void transposeSequential(int matrix[N][N], int transposed[N][N])
         }
     }
 }
+// It used to measure the current CPU time in seconds
 
+double getTime()
+{
+    return (double)clock() / CLOCKS_PER_SEC;
+}
 int main()
 {
     srand(time(NULL));
     int matrix[N][N];
     generateMatrix(matrix);
     int transposed[N][N];
+    transposeSequential(matrix, transposed);
+    
+    double start = getTime(); // Record start time
+    transposeSequential(matrix, transposed);
+    double end = getTime();                         // Record end time
+
     return 0;
 }
