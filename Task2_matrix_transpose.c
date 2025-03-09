@@ -13,10 +13,48 @@ void generateMatrix(int matrix[N][N])
         }
     }
 }
+// Function to perform parallel matrix transposition
+void transposeParallel(int matrix[N][N], int transposed[N][N], int use_dynamic)
+{
+    if (use_dynamic) // If dynamic scheduling is selected
+    {
+#pragma omp parallel for schedule(dynamic) collapse(2) // Parallel loop using OpenMP with static scheduling
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+#pragma omp critical // Critical section ensures only one thread modifies at a time
+                transposed[j][i] = matrix[i][j];
+            }
+        }
+    }
+    else // If dynamic static is selected
+    {
+#pragma omp parallel for schedule(static) collapse(2)
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                int temp = matrix[i][j];
+#pragma omp atomic write // Atomic write ensures only one thread writes at a time
+                transposed[j][i] = temp;
+            }
+        }
+    }
+}
 
 int main()
 {
     int matrix[N][N];
+    int transposed[N][N];
     generateMatrix(matrix);
+    omp_set_num_threads(4); // Set number of threads to 4
+
+    int use_dynamic = 1; // Set to 1 for dynamic (uses critical), 0 for static (uses atomic)
+
+    double start = omp_get_wtime(); // Record start time
+    transposeParallel(matrix, transposed, use_dynamic);
+    double end = omp_get_wtime(); // Record end time
+
     return 0;
 }
