@@ -55,6 +55,7 @@ int main()
     double start = omp_get_wtime(); // Record start time
     transposeParallel(matrix, transposed, use_dynamic);
     double end = omp_get_wtime(); // Record end time
-
+    double execution_time = end - start;                  // Calculate execution time for this run         
+    printf("Execution Time: %f seconds\n", execution_time); // Print execution time for each run
     return 0;
 }
