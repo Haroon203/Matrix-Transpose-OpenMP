@@ -3,6 +3,7 @@
 #include <time.h>
 #include <omp.h> // Include OpenMP library
 #define N 20     // Define Matrix size 20x20
+
 void generateMatrix(int matrix[N][N])
 {
     for (int i = 0; i < N; i++)
@@ -42,14 +43,13 @@ void transposeParallel(int matrix[N][N], int transposed[N][N], int use_dynamic)
         }
     }
 }
-
 int main()
 {
     int matrix[N][N];
     int transposed[N][N];
     generateMatrix(matrix);
     omp_set_num_threads(4); // Set number of threads to 4
-
+    
     int use_dynamic = 1; // Set to 1 for dynamic (uses critical), 0 for static (uses atomic)
 
     double start = omp_get_wtime(); // Record start time
