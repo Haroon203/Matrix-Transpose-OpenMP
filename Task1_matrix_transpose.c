@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define N 20 //  define Matrix size 20x20
+#define N 1000 //  define Matrix size 1000x1000
 
 void generateMatrix(int matrix[N][N])
 {
