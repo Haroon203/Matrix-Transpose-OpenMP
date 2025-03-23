@@ -44,10 +44,10 @@ int main()
     int matrix[N][N];
     generateMatrix(matrix);
     int transposed[N][N];
-    omp_set_num_threads(4); // Set number of threads to 4
+    omp_set_num_threads(8); // Set number of threads to 4
 
     int use_dynamic = 1; // Set to 1 for dynamic (uses critical), 0 for static (uses atomic)
-    int chunk_size = 10; // chunk size
+    int chunk_size = 50; // chunk size
 
     double start = omp_get_wtime(); // Record start time
     transposeParallel(matrix, transposed, use_dynamic);
